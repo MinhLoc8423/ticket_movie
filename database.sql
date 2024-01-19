@@ -4,19 +4,18 @@ CREATE DATABASE ticket_cinema
   
 USE ticket_cinema;
 
--- Dumping structure for table tt_phim.users
 CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int NOT NULL AUTO_INCREMENT,
+  `userID` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '0',
   `phone` int NOT NULL DEFAULT '0',
   `pass_word` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `image_url` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table tt_phim.users: ~0 rows (approximately)
-INSERT INTO `users` (`user_id`, `name`, `phone`, `pass_word`, `image_url`, `email`) VALUES
+INSERT INTO `users` (`userID`, `name`, `phone`, `pass_word`, `image_url`, `email`) VALUES
 	(1, 'hao', 0, '$2y$2y$12$MCzNOIEbvdk1wXM0QqVsl.i5oWu.3KFmMO9YWQ96hBHbZY21gv/sK', NULL, 'abc@gmail.com'),
 	(2, 'Nguyễn Văn A', 901234567, '123456', 'https://example.com/avatar.png', 'nguyenvana@example.com'),
 	(3, 'Trần Thị B', 902345678, '123456', 'https://example.com/avatar2.png', 'tranthib@example.com'),
@@ -27,14 +26,14 @@ INSERT INTO `users` (`user_id`, `name`, `phone`, `pass_word`, `image_url`, `emai
 
 -- Dumping structure for table tt_phim.cinema
 CREATE TABLE IF NOT EXISTS `cinema` (
-  `cinema_id` int NOT NULL AUTO_INCREMENT,
+  `cinameID` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `location` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`cinema_id`)
+  PRIMARY KEY (`cinameID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table tt_phim.cinema: ~0 rows (approximately)
-INSERT INTO `cinema` (`cinema_id`, `name`, `location`) VALUES
+INSERT INTO `cinema` (`cinameID`, `name`, `location`) VALUES
 	(1, 'CGV Nguyễn Du', 'Thành phố Hồ Chí Minh'),
 	(2, 'BHD Star Cineplex Hùng Vương Plaza', 'Thành phố Hồ Chí Minh'),
 	(3, 'CGV Nguyễn Du', 'Thành phố Hồ Chí Minh'),
@@ -44,13 +43,13 @@ INSERT INTO `cinema` (`cinema_id`, `name`, `location`) VALUES
 
 -- Dumping structure for table tt_phim.genre
 CREATE TABLE IF NOT EXISTS `genre` (
-  `genre_id` int NOT NULL AUTO_INCREMENT,
+  `genreID` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`genre_id`)
+  PRIMARY KEY (`genreID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table tt_phim.genre: ~0 rows (approximately)
-INSERT INTO `genre` (`genre_id`, `name`) VALUES
+INSERT INTO `genre` (`genreID`, `name`) VALUES
 	(1, 'Hành động'),
 	(2, 'Hài hước'),
 	(3, 'Lãng mạn'),
@@ -63,19 +62,19 @@ INSERT INTO `genre` (`genre_id`, `name`) VALUES
 
 -- Dumping structure for table tt_phim.movies
 CREATE TABLE IF NOT EXISTS `movies` (
-  `movie_id` int NOT NULL AUTO_INCREMENT,
+  `movieID` int NOT NULL AUTO_INCREMENT,
   `movie_title` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `thumnail` varchar(255) DEFAULT NULL,
   `genre_id` int DEFAULT NULL,
   `movie_time` int DEFAULT NULL,
-  PRIMARY KEY (`movie_id`),
+  PRIMARY KEY (`movieID`),
   KEY `FK_genreID` (`genre_id`),
-  CONSTRAINT `FK_genreID` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`genre_id`)
+  CONSTRAINT `FK_genreID` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`genreID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table tt_phim.movies: ~0 rows (approximately)
-INSERT INTO `movies` (`movie_id`, `movie_title`, `description`, `thumnail`, `genre_id`, `movie_time`) VALUES
+INSERT INTO `movies` (`movieID`, `movie_title`, `description`, `thumnail`, `genre_id`, `movie_time`) VALUES
 	(1, 'Venom: Let There Be Carnage', 'Eddie Brock tiếp tục cuộc chiến với kẻ thù của mình là Venom.', 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Venom_Let_There_Be_Carnage_poster.jpg/220px-Venom_Let_There_Be_Carnage_poster.jpg', 1, 120),
 	(2, 'Spider-Man: No Way Home', 'Peter Parker cố gắng che giấu danh tính của mình, nhưng mọi chuyện trở nên tồi tệ khi kẻ thù của anh ta từ các vũ trụ khác bắt đầu xuất hiện.', 'https://upload.wikimedia.org/wikipedia/en/thumb/3/34/Spider-Man_No_Way_Home_poster.jpg/220px-Spider-Man_No_Way_Home_poster.jpg', 1, 148),
 	(3, 'Venom: Let There Be Carnage', 'Eddie Brock tiếp tục cuộc chiến với kẻ thù của mình là Venom.', 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Venom_Let_There_Be_Carnage_poster.jpg/220px-Venom_Let_There_Be_Carnage_poster.jpg', 1, 120),
@@ -85,13 +84,13 @@ INSERT INTO `movies` (`movie_id`, `movie_title`, `description`, `thumnail`, `gen
 
 -- Dumping structure for table tt_phim.seats
 CREATE TABLE IF NOT EXISTS `seats` (
-  `seat_id` int NOT NULL AUTO_INCREMENT,
+  `seatsID` int NOT NULL AUTO_INCREMENT,
   `seat_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`seat_id`)
+  PRIMARY KEY (`seatsID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table tt_phim.seats: ~0 rows (approximately)
-INSERT INTO `seats` (`seat_id`, `seat_name`) VALUES
+INSERT INTO `seats` (`seatsID`, `seat_name`) VALUES
 	(1, 'Ghế A1'),
 	(2, 'Ghế A2'),
 	(3, 'Ghế A3'),
@@ -110,19 +109,19 @@ INSERT INTO `seats` (`seat_id`, `seat_name`) VALUES
 
 -- Dumping structure for table tt_phim.showtime
 CREATE TABLE IF NOT EXISTS `showtime` (
-  `showtime_id` int NOT NULL AUTO_INCREMENT,
+  `showtimeID` int NOT NULL AUTO_INCREMENT,
   `movie_id` int NOT NULL DEFAULT '0',
   `cinema_id` int DEFAULT NULL,
   `time` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`showtime_id`),
+  PRIMARY KEY (`showtimeID`),
   KEY `FK_movieID_showtime` (`movie_id`),
   KEY `FK_cinemaID_showtime` (`cinema_id`),
-  CONSTRAINT `FK_cinemaID_showtime` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
-  CONSTRAINT `FK_movieID_showtime` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`movie_id`)
+  CONSTRAINT `FK_cinemaID_showtime` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinameID`),
+  CONSTRAINT `FK_movieID_showtime` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`movieID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table tt_phim.showtime: ~0 rows (approximately)
-INSERT INTO `showtime` (`showtime_id`, `movie_id`, `cinema_id`, `time`) VALUES
+INSERT INTO `showtime` (`showtimeID`, `movie_id`, `cinema_id`, `time`) VALUES
 	(1, 1, 1, '10:00 AM'),
 	(2, 1, 2, '12:00 PM'),
 	(3, 2, 1, '2:00 PM'),
@@ -138,50 +137,46 @@ INSERT INTO `showtime` (`showtime_id`, `movie_id`, `cinema_id`, `time`) VALUES
 
 -- Dumping structure for table tt_phim.ticket
 CREATE TABLE IF NOT EXISTS `ticket` (
-  `ticket_id` int NOT NULL AUTO_INCREMENT,
+  `ticketID` int NOT NULL AUTO_INCREMENT,
   `movie_id` int NOT NULL DEFAULT '0',
   `price` int NOT NULL DEFAULT '0',
-  `showtime_id` int NOT NULL DEFAULT '0',
+  `show_time_id` int NOT NULL DEFAULT '0',
   `cinema_id` int DEFAULT NULL,
   `seat_id` int DEFAULT NULL,
-  PRIMARY KEY (`ticket_id`),
+  PRIMARY KEY (`ticketID`),
   KEY `FK_movieID` (`movie_id`),
-  KEY `FK_showtimeID` (`showtime_id`),
+  KEY `FK_showtimeID` (`show_time_id`),
   KEY `FK_cinemaID` (`cinema_id`),
   KEY `FK_seatID` (`seat_id`),
-  CONSTRAINT `FK_cinemaID` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinema_id`),
-  CONSTRAINT `FK_movieID` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`movie_id`),
-  CONSTRAINT `FK_seatID` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`seat_id`),
-  CONSTRAINT `FK_showtimeID` FOREIGN KEY (`showtime_id`) REFERENCES `showtime` (`showtime_id`)
+  CONSTRAINT `FK_cinemaID` FOREIGN KEY (`cinema_id`) REFERENCES `cinema` (`cinameID`),
+  CONSTRAINT `FK_movieID` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`movieID`),
+  CONSTRAINT `FK_seatID` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`seatsID`),
+  CONSTRAINT `FK_showtimeID` FOREIGN KEY (`show_time_id`) REFERENCES `showtime` (`showtimeID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table tt_phim.ticket: ~0 rows (approximately)
-INSERT INTO `ticket` (`ticket_id`, `movie_id`, `price`, `showtime_id`, `cinema_id`, `seat_id`) VALUES
+INSERT INTO `ticket` (`ticketID`, `movie_id`, `price`, `show_time_id`, `cinema_id`, `seat_id`) VALUES
 	(1, 1, 100, 1, 1, 1),
 	(2, 1, 120, 2, 1, 2),
 	(3, 2, 150, 3, 2, 3);
 
 CREATE TABLE IF NOT EXISTS `booking` (
-  `booking_id` int NOT NULL AUTO_INCREMENT,
+  `bookingID` int NOT NULL AUTO_INCREMENT,
   `ticket_id` int DEFAULT NULL,
   `booking_time` datetime DEFAULT NULL,
   `ticket_quantity` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
-  PRIMARY KEY (`booking_id`),
+  PRIMARY KEY (`bookingID`),
   KEY `FK_ticketID` (`ticket_id`),
   KEY `FK_userID` (`user_id`),
-  CONSTRAINT `FK_ticketID` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`ticket_id`),
-  CONSTRAINT `FK_userID` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+  CONSTRAINT `FK_ticketID` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`ticketID`),
+  CONSTRAINT `FK_userID` FOREIGN KEY (`user_id`) REFERENCES `users` (`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table tt_phim.booking: ~3 rows (approximately)
-INSERT INTO `booking` (`booking_id`, `ticket_id`, `booking_time`, `ticket_quantity`, `user_id`) VALUES
+INSERT INTO `booking` (`bookingID`, `ticket_id`, `booking_time`, `ticket_quantity`, `user_id`) VALUES
 	(10, 1, '2024-01-18 10:00:00', 1, 1),
 	(11, 2, '2024-01-18 12:00:00', 2, 2),
 	(12, 3, '2024-01-18 14:00:00', 3, 3);
 
--- get api hiển thị danh sách các phim đang chiếu.
-SELECT showtime.showtime_id, movies.movie_title, cinema.name, showtime.time
-FROM showtime, movies, cinema
-WHERE showtime.cinema_id = cinema.cinema_id AND showtime.movie_id = movies.movie_id
 
