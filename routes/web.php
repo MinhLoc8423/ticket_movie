@@ -24,5 +24,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         return $results;
     });
 
+
     $router->get('/ct/{id}', 'MoviesController@detail');
+
+    
+    $router->get('/booking-history', 'BookingController@index');
+
 });
