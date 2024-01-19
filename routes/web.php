@@ -22,4 +22,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $results = DB::select("SELECT showtime.showtime_id, movies.movie_title, cinema.name, showtime.time FROM showtime, movies, cinema WHERE showtime.cinema_id = cinema.cinema_id AND showtime.movie_id = movies.movie_id");
         return $results;
     });
+    
+    $router->get('/booking-history', 'BookingController@index');
 });
