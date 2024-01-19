@@ -22,7 +22,9 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/show-time', function () use ($router) {
-        $results = DB::select("SELECT showtime.showtime_id, movies.movie_title, cinema.name, showtime.time FROM showtime, movies, cinema WHERE showtime.cinema_id = cinema.cinema_id AND showtime.movie_id = movies.movie_id");
+        $results = DB::select("SELECT showtime.`showtimeID`, movies.movie_title, cinema.name, showtime.time
+        FROM showtime, movies, cinema
+        WHERE showtime.cinema_id = cinema.`cinameID` AND showtime.movie_id = movies.`movieID`");
         return $results;
     });
 
