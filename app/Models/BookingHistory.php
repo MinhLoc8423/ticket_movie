@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+class BookingHistory extends Model 
 {
     use Authenticatable, Authorizable, HasFactory;
 
@@ -17,8 +15,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var string[]
      */
+
+    public $table = 'booking';
+    public $timestamps = false;
     protected $fillable = [
-        'name', 'email',
+        'ticket_id',
+        'booking_time',
+        'tick_quantity'
     ];
 
     /**
@@ -26,8 +29,5 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var string[]
      */
-    protected $hidden = [
-        'pass_word',
-    ];
 
 }
