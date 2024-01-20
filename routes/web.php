@@ -21,16 +21,12 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/show-time', function () use ($router) {
-        $results = DB::select("SELECT showtime.`showtimeID`, movies.movie_title, cinema.name, showtime.time
-        FROM showtime, movies, cinema
-        WHERE showtime.cinema_id = cinema.`cinameID` AND showtime.movie_id = movies.`movieID`");
-        return $results;
-    });
+    $router->get('/show-time', 'ShowTimeController@all');
 
 
     $router->get('/ct/{id}', 'MoviesController@detail');
 
+    $router->post('/ticket', 'TicketController@create');
     
     $router->get('/booking-history', 'BookingController@index');
 
