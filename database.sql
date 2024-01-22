@@ -11,18 +11,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `pass_word` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `image_url` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
+  `api_token` varchar(100) NOT NULL,
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table tt_phim.users: ~0 rows (approximately)
-INSERT INTO `users` (`userID`, `name`, `phone`, `pass_word`, `image_url`, `email`) VALUES
-	(1, 'hao', 0, '$2y$2y$12$MCzNOIEbvdk1wXM0QqVsl.i5oWu.3KFmMO9YWQ96hBHbZY21gv/sK', NULL, 'abc@gmail.com'),
-	(2, 'Nguyễn Văn A', 901234567, '123456', 'https://example.com/avatar.png', 'nguyenvana@example.com'),
-	(3, 'Trần Thị B', 902345678, '123456', 'https://example.com/avatar2.png', 'tranthib@example.com'),
-	(4, 'Nguyễn Văn A', 901234567, '123456', 'https://example.com/avatar.png', 'nguyenvana@example.com'),
-	(5, 'Trần Thị B', 902345678, '123456', 'https://example.com/avatar2.png', 'tranthib@example.com'),
-	(6, 'Nguyễn Văn A', 901234567, '123456', 'https://example.com/avatar.png', 'nguyenvana@example.com'),
-	(7, 'Trần Thị B', 902345678, '123456', 'https://example.com/avatar2.png', 'tranthib@example.com');
+INSERT INTO `users` (`userID`, `name`, `phone`, `pass_word`, `image_url`, `email`,`api_token`) VALUES
+	(1, 'hao', 0, '$2y$2y$12$MCzNOIEbvdk1wXM0QqVsl.i5oWu.3KFmMO9YWQ96hBHbZY21gv/sK', NULL, 'abc@gmail.com', "test"),
+	(2, 'Nguyễn Văn A', 901234567, '123456', 'https://example.com/avatar.png', 'nguyenvana@example.com',""),
+	(3, 'Trần Thị B', 902345678, '123456', 'https://example.com/avatar2.png', 'tranthib@example.com',""),
+	(4, 'Nguyễn Văn A', 901234567, '123456', 'https://example.com/avatar.png', 'nguyenvana@example.com',""),
+	(5, 'Trần Thị B', 902345678, '123456', 'https://example.com/avatar2.png', 'tranthib@example.com',""),
+	(6, 'Nguyễn Văn A', 901234567, '123456', 'https://example.com/avatar.png', 'nguyenvana@example.com',""),
+	(7, 'Trần Thị B', 902345678, '123456', 'https://example.com/avatar2.png', 'tranthib@example.com',"");
 
 -- Dumping structure for table tt_phim.cinema
 CREATE TABLE IF NOT EXISTS `cinema` (

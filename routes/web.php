@@ -19,14 +19,17 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('/show-time', 'ShowTimeController@all');
+$router->post('admin', ['middleware' => 'auth', function () use ($router) {
+    return $router->app->version();
+}]);
 
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
+    $router->get('/show-time', 'ShowTimeController@all');
 
     $router->get('/ct/{id}', 'MoviesController@detail');
 
     $router->post('/ticket', 'TicketController@create');
     
-    $router->get('/booking-history', 'BookingController@index');
+    $router->get('/booking-history/{user_id}', 'BookingController@index');
 
 });

@@ -15,7 +15,11 @@ class BookingController extends Controller
     }
 
 
-    public function index(Request $request){
-        return (BookingHistory::where('user_id', $_GET['user_id'])->get());
+    public function index($user_id){
+        $bookingHistory = BookingHistory::where('user_id', $user_id)->get();
+        if ($bookingHistory->isEmpty()){
+            return response(['error' => 'Không tồn tại lịch sử đơn hàng'], 400);
+        };
+        return response($bookingHistory);
     }
 }
