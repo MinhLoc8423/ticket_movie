@@ -31,6 +31,6 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
 
     $router->post('/ticket', 'TicketController@create');
     
-    $router->get('/booking-history', 'BookingController@index');
+    $router->get('/booking-history/{user_id}', 'BookingController@index');
 
 });
