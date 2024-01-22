@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BookingHistory;
+use Illuminate\Support\Facades\Auth;
+
 class BookingController extends Controller
 {
     /**
@@ -14,8 +16,8 @@ class BookingController extends Controller
 
     }
 
-
-    public function index($user_id){
+    public function index(){
+        $user_id = Auth::user()->userID;;
         $bookingHistory = BookingHistory::where('user_id', $user_id)->get();
         if ($bookingHistory->isEmpty()){
             return response(['error' => 'Không tồn tại lịch sử đơn hàng'], 400);
