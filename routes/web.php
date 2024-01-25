@@ -27,7 +27,11 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
     
     $router->get('/show-time', 'ShowTimeController@all');
 
+    $router->get('/ct', 'MoviesController@detail_index');
     $router->get('/ct/{id}', 'MoviesController@detail');
+    $router->post('/ct', 'MoviesController@create_detail');
+    $router->put('/ct/{id}', 'MoviesController@update_detail');
+    $router->delete('/ct/{id}', 'MoviesController@delete_detail');
 
     $router->post('/ticket', 'TicketController@create');
     
