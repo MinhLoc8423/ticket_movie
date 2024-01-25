@@ -21,7 +21,8 @@ class BookingHistory extends Model
     protected $fillable = [
         'ticket_id',
         'booking_time',
-        'tick_quantity'
+        'ticket_quantity',
+        'user_id'
     ];
 
     /**
