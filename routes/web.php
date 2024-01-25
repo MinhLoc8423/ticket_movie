@@ -25,7 +25,8 @@ $router->post('admin', ['middleware' => 'auth', function () use ($router) {
 }]);
 
 $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
-    $router->get('/show-time', 'ShowTimeController@all');
+    $router->get('/show-time', 'ShowTimeController@index');
+    $router->post('/show-time/create', 'ShowTimeController@store');
 
     $router->get('/ct/{id}', 'MoviesController@detail');
 
