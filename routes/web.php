@@ -32,5 +32,7 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
     $router->post('/ticket', 'TicketController@create');
     
     $router->get('/booking-history', 'BookingController@index');
+    $router->post('/booking-history/create', 'BookingController@store');
+    $router->post('/booking-history/edit', 'BookingController@update');
 
 });
