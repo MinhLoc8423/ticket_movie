@@ -1,7 +1,6 @@
 <?php
 
 /** @var \Laravel\Lumen\Routing\Router $router */
-use App\Http\Controllers\ProductDetailController;
 
 use Illuminate\Support\Facades\DB;
 
@@ -28,10 +27,16 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
     $router->get('/show-time', 'ShowTimeController@index');
     $router->post('/show-time/create', 'ShowTimeController@store');
 
+    $router->get('/ct', 'MoviesController@detail_index');
     $router->get('/ct/{id}', 'MoviesController@detail');
+    $router->post('/ct', 'MoviesController@create_detail');
+    $router->put('/ct/{id}', 'MoviesController@update_detail');
+    $router->delete('/ct/{id}', 'MoviesController@delete_detail');
 
     $router->post('/ticket', 'TicketController@create');
     
     $router->get('/booking-history', 'BookingController@index');
+    $router->post('/booking-history/create', 'BookingController@store');
+    $router->post('/booking-history/edit', 'BookingController@update');
 
 });
