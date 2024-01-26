@@ -37,7 +37,12 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
     $router->put('/ct/{id}', 'MoviesController@update_detail');
     $router->delete('/ct/{id}', 'MoviesController@delete_detail');
 
-    $router->post('/ticket', 'TicketController@create');
+    $router->group(['prefix' => 'ticket'], function () use ($router) {
+        $router->get('/', 'TicketController@index');
+        $router->post('/create', 'TicketController@store');
+        $router->put('/update/{id}', 'TicketController@update');
+        $router->delete('/delete/{id}', 'TicketController@destroy');
+    });
     
     $router->get('/booking-history', 'BookingController@index');
     $router->post('/booking-history/create', 'BookingController@store');
