@@ -41,6 +41,6 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
     
     $router->get('/booking-history', 'BookingController@index');
     $router->post('/booking-history/create', 'BookingController@store');
-    $router->post('/booking-history/edit', 'BookingController@update');
-
+    $router->patch('/booking-history/edit/{bookingID}', 'BookingController@update');
+    $router->delete('/booking-history/delete/{bookingID}', 'BookingController@destroy');
 });
