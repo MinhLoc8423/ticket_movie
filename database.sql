@@ -131,6 +131,7 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `seat_id` int DEFAULT NULL,
   `is_actived` BOOLEAN NOT NULL DEFAULT 0,
   `is_refunded` BOOLEAN NOT NULL DEFAULT 0,
+  `is_disabled` BOOLEAN NOT NULL DEFAULT 0,
   PRIMARY KEY (`ticketID`),
   KEY `FK_movieID` (`movie_id`),
   KEY `FK_showtimeID` (`show_time_id`),
