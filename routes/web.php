@@ -24,8 +24,12 @@ $router->post('admin', ['middleware' => 'auth', function () use ($router) {
 }]);
 
 $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
-    $router->get('/show-time', 'ShowTimeController@index');
-    $router->post('/show-time/create', 'ShowTimeController@store');
+    $router->group(['prefix' => 'show-time'], function () use ($router) {
+        $router->get('/', 'ShowTimeController@index');
+        $router->post('/create', 'ShowTimeController@store');
+        $router->put('/update/{id}', 'ShowTimeController@update');
+        $router->delete('/delete/{id}', 'ShowTimeController@destroy');
+    });
 
     $router->get('/ct', 'MoviesController@detail_index');
     $router->get('/ct/{id}', 'MoviesController@detail');
