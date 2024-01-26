@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 class BookingHistory extends Model 
 {
-    use Authenticatable, Authorizable, HasFactory;
-
+    use Authenticatable, Authorizable, HasFactory, SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
