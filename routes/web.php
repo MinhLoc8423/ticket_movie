@@ -41,6 +41,7 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
         $router->get('/', 'TicketController@index');
         $router->post('/create', 'TicketController@store');
         $router->put('/update/{id}', 'TicketController@update');
+        $router->delete('/delete/{id}', 'TicketController@destroy');
     });
     
     $router->get('/booking-history', 'BookingController@index');

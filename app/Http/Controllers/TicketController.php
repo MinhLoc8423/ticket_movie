@@ -17,7 +17,7 @@ class TicketController extends Controller
     public function index(){
         return response()->json([       
             'status' => 200,
-            "data" => Ticket::all()
+            "data" => Ticket::all()->where('is_disabled', 0)
         ]); 
     }
 
@@ -90,5 +90,9 @@ class TicketController extends Controller
 
     public function update(Request $request, $id){
         
+    }
+
+    public function destroy($id){
+        echo $id;
     }
 }
