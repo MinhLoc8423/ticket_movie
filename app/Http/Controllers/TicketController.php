@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ShowTime;
 use Hamcrest\Type\IsNumeric;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -93,6 +95,40 @@ class TicketController extends Controller
     }
 
     public function destroy($id){
-        echo $id;
+        $user_id = Auth::user()->role;
+        if($user_id == 1){
+            $data = Ticket::findOrFail($id);
+            if(($data->is_actived) == 0){
+                $dt = ShowTime::find($data->show_time_id);
+                $time1 = date("H:i",  time());
+                $time2 = date("H:i", strtotime($dt->time));
+                if($time1 < $time2){
+                    $ticket = Ticket::find($id);
+                    $ticket->forceFill(['is_disabled' => 1])->save();
+                    return response()->json([       
+                        'status' => 200,
+                        "message" => "Deleted successfully"
+                    ]); 
+                }
+                else{
+                    return response()->json([       
+                        'status' => 400,
+                        'data' => "Tickets have not expired yet"
+                    ]);
+                }
+            }
+            else{
+                return response()->json([       
+                    'status' => 400,
+                    'data' => "Ticket has been used"
+                ]); 
+            }
+        }
+        else{
+            return response()->json([       
+                'status' => 400,
+                'data' => "Pls login by account admin"
+            ]); 
+        }
     }
 }
