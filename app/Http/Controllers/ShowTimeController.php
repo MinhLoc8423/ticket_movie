@@ -24,7 +24,7 @@ class ShowTimeController extends Controller
         $validatedData = Validator::make($request->all(), [
             'movie_id' => 'required|numeric',
             'cinema_id' => 'required|numeric',
-            'time' => 'required|date_format:H:i A'
+            'time' => 'required|date_format:H:i:s'
         ]);
 
         if ($validatedData->fails()) {
@@ -71,7 +71,7 @@ class ShowTimeController extends Controller
             $validatedData = Validator::make($request->all(), [
                 'movie_id' => 'required|numeric',
                 'cinema_id' => 'required|numeric',
-                'time' => 'required|date_format:H:i A'
+                'time' => 'required|date_format:H:i:s'
             ]);
     
             if ($validatedData->fails()) {
