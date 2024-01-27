@@ -91,6 +91,27 @@ class TicketController extends Controller
     }
 
     public function update(Request $request, $id){
+        try {
+            $time1 = Ticket::find($id)->show_time_id;
+            $showtime  = ShowTime::find($time1);
+            $nextShowtime = Showtime::where('time', '>', $showtime->time)->first();
+            if($nextShowtime){
+            $ticket = Ticket::find($id);
+                    $ticket->update(['show_time_id' => $nextShowtime->showtimeID]);
+                    return response()->json([       
+                        'status' => 200,
+                        "message" => "Change showtime successfully"
+                    ]); 
+            }
+            else{
+                return response()->json([       
+                    'status' => 500,
+                    "messages" => "Can't change showtime"
+                ]); 
+            }
+        } catch (\Throwable $th) {
+            echo $th;
+        }
         
     }
 
@@ -100,8 +121,8 @@ class TicketController extends Controller
             $data = Ticket::findOrFail($id);
             if(($data->is_actived) == 0){
                 $dt = ShowTime::find($data->show_time_id);
-                $time1 = date("H:i",  time());
-                $time2 = date("H:i", strtotime($dt->time));
+                $time1 = date("H:i:s",  time());
+                $time2 = date("H:i:s", strtotime($dt->time));
                 if($time1 < $time2){
                     $ticket = Ticket::find($id);
                     $ticket->forceFill(['is_disabled' => 1])->save();
