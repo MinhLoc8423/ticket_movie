@@ -8,5 +8,8 @@ class Ticket extends Model
     public $table = 'ticket';
     protected $primaryKey = 'ticketID';
     public $timestamps = false;
-    protected $fillable = ['movie_id', 'price', 'show_time_id', 'cinema_id', 'seat_id'];
+    protected $fillable = ['movie_id', 'price', 'show_time_id', 'cinema_id', 'seat_id', 'role'];
+    protected $hidden = [
+        'is_disabled'
+    ];
 }

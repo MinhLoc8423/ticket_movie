@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `pass_word` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `image_url` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
+  `role` BOOLEAN NOT NULL DEFAULT 0,
   `api_token` varchar(100) NOT NULL,
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -99,14 +100,7 @@ INSERT INTO `seats` (`seatsID`, `seat_name`) VALUES
 	(5, 'Ghế A2'),
 	(6, 'Ghế A3'),
 	(7, 'Ghế A1'),
-	(8, 'Ghế A2'),
-	(9, 'Ghế A3'),
-	(10, 'Ghế A1'),
-	(11, 'Ghế A2'),
-	(12, 'Ghế A3'),
-	(13, 'Ghế A1'),
-	(14, 'Ghế A2'),
-	(15, 'Ghế A3');
+	(8, 'Ghế A2');
 
 -- Dumping structure for table tt_phim.showtime
 CREATE TABLE IF NOT EXISTS `showtime` (
@@ -125,16 +119,7 @@ CREATE TABLE IF NOT EXISTS `showtime` (
 INSERT INTO `showtime` (`showtimeID`, `movie_id`, `cinema_id`, `time`) VALUES
 	(1, 1, 1, '10:00 AM'),
 	(2, 1, 2, '12:00 PM'),
-	(3, 2, 1, '2:00 PM'),
-	(12, 2, 2, '4:00 PM'),
-	(13, 1, 1, '10:00 AM'),
-	(14, 1, 2, '12:00 PM'),
-	(15, 2, 1, '2:00 PM'),
-	(16, 2, 2, '4:00 PM'),
-	(17, 1, 1, '10:00 AM'),
-	(18, 1, 2, '12:00 PM'),
-	(19, 2, 1, '2:00 PM'),
-	(20, 2, 2, '4:00 PM');
+	(3, 2, 1, '2:00 PM');
 
 -- Dumping structure for table tt_phim.ticket
 CREATE TABLE IF NOT EXISTS `ticket` (
@@ -144,6 +129,9 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `show_time_id` int NOT NULL DEFAULT '0',
   `cinema_id` int DEFAULT NULL,
   `seat_id` int DEFAULT NULL,
+  `is_actived` BOOLEAN NOT NULL DEFAULT 0,
+  `is_refunded` BOOLEAN NOT NULL DEFAULT 0,
+  `is_disabled` BOOLEAN NOT NULL DEFAULT 0,
   PRIMARY KEY (`ticketID`),
   KEY `FK_movieID` (`movie_id`),
   KEY `FK_showtimeID` (`show_time_id`),

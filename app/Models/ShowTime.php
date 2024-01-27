@@ -7,5 +7,6 @@ class ShowTime extends Model
 {
     protected $table = 'showtime';
     protected $primaryKey = 'showtimeID';
-    protected $fillable = ['movie_id1123123', 'cinema_id', 'time'];
+    public $timestamps = false;
+    protected $fillable = ['movie_id', 'cinema_id', 'time'];
 }
