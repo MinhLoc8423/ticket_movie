@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
+//ee
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
