@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-//eeasasd
-
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
