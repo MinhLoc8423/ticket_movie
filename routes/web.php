@@ -50,4 +50,8 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
         $router->patch('/edit/{bookingID}', 'BookingController@update');
         $router->delete('/delete/{bookingID}', 'BookingController@destroy');
     });
+
 });
+
+$router->post('/login', 'AuthController@login');
+$router->post('/register', 'AuthController@lregister');
