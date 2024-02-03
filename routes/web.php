@@ -44,8 +44,14 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
         $router->delete('/delete/{id}', 'TicketController@destroy');
     });
     
-    $router->get('/booking-history', 'BookingController@index');
-    $router->post('/booking-history/create', 'BookingController@store');
-    $router->patch('/booking-history/edit/{bookingID}', 'BookingController@update');
-    $router->delete('/booking-history/delete/{bookingID}', 'BookingController@destroy');
+    $router->group(['prefix' => 'booking-history'], function () use ($router) {
+        $router->get('/', 'BookingController@index');
+        $router->post('/create', 'BookingController@store');
+        $router->patch('/edit/{bookingID}', 'BookingController@update');
+        $router->delete('/delete/{bookingID}', 'BookingController@destroy');
+    });
+
 });
+
+$router->post('/login', 'AuthController@login');
+$router->post('/register', 'AuthController@lregister');
