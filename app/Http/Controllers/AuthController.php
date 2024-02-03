@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\upload;
@@ -17,19 +18,46 @@ class AuthController extends Controller
 
     }
 
+    function generateToken() {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $token = '';
+    
+        for ($i = 0; $i < 10; $i++) {
+            $token .= $characters[rand(0, strlen($characters) - 1)];
+        }
+    
+        return $token;
+    }
+
 
     public function register(Request $request){
+        $validated_data = $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        // kiểm tra có trùng email không
+        $isUserExist = User::where('email', $request->input('email'))->first();
+        if ($isUserExist){
+            return response()->json(['error' => 'Email không được trùng'], 400);
+        }
+        $user =  User::create([
+            'email' => $validated_data['email'],
+            'pass_word' => Crypt::encrypt($validated_data['password']),
+            'api_token' =>  $this->generateToken()
+        ]);
+       
+        return response()->json(['sucesss' => 'Đăng ký thành công', 'data' => $user], 200);
     }
 
     public function login(Request $request){
-        // Nếu đã mã hóa mật khẩu thì chưa kiểm tra đc
-        $user = User::where('email', $request->input('email'))
-            ->where('pass_word',  $request->input('password'))->first();
-        if ($user) {
+        $user = User::where('email', $request->input('email'))->first();
+        if (!$user){
+            return response()->json(['error' => 'Sai email hoặc mật khẩu'], 401);
+        }
+        if (Crypt::decrypt($user->pass_word) == $request->input('password')){
             return response()->json(['sucesss' => 'Đăng nhập thành công', 'token' => $user->api_token], 200);
         }
         return response()->json(['error' => 'Sai email hoặc mật khẩu'], 401);
-
     }
 
     public function uploadImage(Request $request){

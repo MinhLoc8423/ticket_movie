@@ -59,5 +59,5 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
 });
 
 $router->post('/login', 'AuthController@login');
-$router->post('/register', 'AuthController@lregister');
+$router->post('/register', 'AuthController@register');
 
