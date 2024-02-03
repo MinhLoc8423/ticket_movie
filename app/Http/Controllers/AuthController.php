@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\upload;
 use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
@@ -29,5 +30,24 @@ class AuthController extends Controller
         }
         return response()->json(['error' => 'Sai email hoặc mật khẩu'], 401);
 
+    }
+
+    public function uploadImage(Request $request){
+        $user = upload::find($request->userID);
+
+        if (!$user) {
+            return response()->json(['error' => 'Ngươi dùng không tồn tại'], 404);
+        }
+
+        if ($request->hasFile('image')) {
+            // Lấy file hình ảnh từ request
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();;// Lấy tên gốc của file
+            $user->image_url = $imageName; // Cập nhật cột image_url trong cơ sở dữ liệu
+            $user->save();
+            return response()->json(['message' => 'Tải ảnh lên thành công', 'image_url' => $imageName]);
+        } else {
+            return response()->json(['error' => 'Không có ảnh'], 400);
+        }
     }
 }
