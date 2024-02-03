@@ -31,11 +31,13 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
         $router->delete('/delete/{id}', 'ShowTimeController@destroy');
     });
 
-    $router->get('/ct', 'MoviesController@detail_index');
-    $router->get('/ct/{id}', 'MoviesController@detail');
-    $router->post('/ct', 'MoviesController@create_detail');
-    $router->put('/ct/{id}', 'MoviesController@update_detail');
-    $router->delete('/ct/{id}', 'MoviesController@delete_detail');
+    $router->group(['prefix' => 'chitiet'], function () use ($router) {
+        $router->get('/ct', 'MoviesController@detail_index');
+        $router->get('/ct/{id}', 'MoviesController@detail');
+        $router->post('/ct/create', 'MoviesController@create_detail');
+        $router->put('/ct/edit/{id}', 'MoviesController@update_detail');
+        $router->delete('/ct/deldete/{id}', 'MoviesController@delete_detail');
+    });
 
     $router->group(['prefix' => 'ticket'], function () use ($router) {
         $router->get('/', 'TicketController@index');
@@ -51,7 +53,11 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
         $router->delete('/delete/{bookingID}', 'BookingController@destroy');
     });
 
+    $router->group(['prefix' => 'user'], function () use ($router) {
+        $router->post('/upload', 'AuthController@uploadImage');
+    });
 });
 
 $router->post('/login', 'AuthController@login');
 $router->post('/register', 'AuthController@lregister');
+
