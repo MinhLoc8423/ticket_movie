@@ -33,9 +33,9 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
 
     $router->get('/ct', 'MoviesController@detail_index');
     $router->get('/ct/{id}', 'MoviesController@detail');
-    $router->post('/ct', 'MoviesController@create_detail');
-    $router->put('/ct/{id}', 'MoviesController@update_detail');
-    $router->delete('/ct/{id}', 'MoviesController@delete_detail');
+    $router->post('/ct/create', 'MoviesController@create_detail');
+    $router->put('/ct/edit/{id}', 'MoviesController@update_detail');
+    $router->delete('/ct/deldete/{id}', 'MoviesController@delete_detail');
 
     $router->group(['prefix' => 'ticket'], function () use ($router) {
         $router->get('/', 'TicketController@index');
