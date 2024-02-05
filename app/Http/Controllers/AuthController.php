@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\upload;
+use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
@@ -55,7 +56,17 @@ class AuthController extends Controller
             return response()->json(['error' => 'Sai email hoặc mật khẩu'], 401);
         }
         if (Crypt::decrypt($user->pass_word) == $request->input('password')){
-            return response()->json(['sucesss' => 'Đăng nhập thành công', 'token' => $user->api_token], 200);
+            $payload = [
+                'sub' => $user->userID,
+                'iat' => time(),
+                'exp' => time() + 60*60*24 
+            ];
+
+            $token = JWT::encode($payload, env('JWT_SECRET'), 'HS256');
+            $user->update([
+                'api_token' => $token,
+            ]);
+            return response()->json(['sucesss' => 'Đăng nhập thành công', 'token' => $token], 200);
         }
         return response()->json(['error' => 'Sai email hoặc mật khẩu'], 401);
     }
