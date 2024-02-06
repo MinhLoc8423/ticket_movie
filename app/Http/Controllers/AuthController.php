@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\upload;
 use Firebase\JWT\JWT;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResetPasswordEmail;
 use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
@@ -23,7 +25,7 @@ class AuthController extends Controller
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $token = '';
     
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $token .= $characters[rand(0, strlen($characters) - 1)];
         }
     
@@ -89,4 +91,19 @@ class AuthController extends Controller
             return response()->json(['error' => 'Không có ảnh'], 400);
         }
     }
+
+    public function resetPassword(Request $request){
+        $currentUser = User::where('api_token', $request->bearerToken())->first();
+        return Crypt::decrypt($currentUser->pass_word);
+        $newPassword = $this->generateToken();
+
+        $currentUser->update([
+            'pass_word' => Crypt::encrypt($newPassword)
+        ]);
+
+        Mail::to($currentUser->email)->send(new ResetPasswordEmail($newPassword));
+        return response()->json(['sucess' => 'Thay đổi thành công' , 'data' => $currentUser], 400);
+    }
+
+
 }
