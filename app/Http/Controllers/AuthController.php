@@ -94,16 +94,15 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request){
         $currentUser = User::where('api_token', $request->bearerToken())->first();
-        return Crypt::decrypt($currentUser->pass_word);
         $newPassword = $this->generateToken();
 
         $currentUser->update([
             'pass_word' => Crypt::encrypt($newPassword)
         ]);
 
+        // Chỉ gửi đến mail dựa trên mail mà user đã đăng ký trước đó
         Mail::to($currentUser->email)->send(new ResetPasswordEmail($newPassword));
-        return response()->json(['sucess' => 'Thay đổi thành công' , 'data' => $currentUser], 400);
+        return response()->json(['sucess' => 'Thay đổi thành công' , 'data' => $currentUser], 200);
     }
-
 
 }
