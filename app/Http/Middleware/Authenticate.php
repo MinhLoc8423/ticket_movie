@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 class Authenticate
@@ -33,10 +35,33 @@ class Authenticate
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    // public function handle($request, Closure $next, $guard = null)
+    // {
+    //     if ($this->auth->guard($guard)->guest()) {
+    //         return response('Unauthorized.', 401);
+    //     }
+
+    //     return $next($request);
+    // }
+
+    public function handle($request, Closure $next)
     {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+        // Thử giải mã token
+        try {
+            // Lấy token bearer từ tiêu đề yêu cầu
+            $token = $request->bearerToken();
+
+            // Kiểm tra nếu không có token, trả về lỗi 401
+            if (!$token) {
+                return response()->json(['error' => 'Không được phép truy cập. Token không được cung cấp.'], 401);
+            }
+            // Giải mã token bằng mật khẩu bí mật được lưu trong .env
+            $key = env('JWT_SECRET');
+            JWT::decode($token, new Key($key, 'HS256'));
+        } catch (\Firebase\JWT\ExpiredException $e) {
+            return response()->json(['error' =>  $e->getMessage()], 401);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Lỗi không xác định.'], 401);
         }
 
         return $next($request);
