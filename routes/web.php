@@ -55,6 +55,7 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
 
     $router->group(['prefix' => 'user'], function () use ($router) {
         $router->post('/upload', 'AuthController@uploadImage');
+        $router->post('/reset-password', 'AuthController@resetPassword');
     });
 });
 
