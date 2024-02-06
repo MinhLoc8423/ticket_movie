@@ -66,4 +66,27 @@ class Authenticate
 
         return $next($request);
     }
+
+    // public function handle($request, Closure $next)
+    // {
+    //     // Thử giải mã token
+    //     try {
+    //         // Lấy token bearer từ tiêu đề yêu cầu
+    //         $token = $request->bearerToken();
+
+    //         // Kiểm tra nếu không có token, trả về lỗi 401
+    //         if (!$token) {
+    //             return response()->json(['error' => 'Unauthorized'], 401);
+    //         }
+    //         // Giải mã token bằng mật khẩu bí mật được lưu trong .env
+    //         $key = env('JWT_SECRET');
+    //         JWT::decode($token, new Key($key, 'HS256'));
+    //     } catch (\Firebase\JWT\ExpiredException $e) {
+    //         return response()->json(['error' =>  $e->getMessage()], 401);
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => 'Unknown error'], 401);
+    //     }
+
+    //     return $next($request);
+    // }
 }
